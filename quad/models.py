@@ -6,19 +6,25 @@ from autoslug import AutoSlugField
 
 
 class Profil(models.Model):
-    avatar = models.CharField(max_length = 500)
-    
+    avatar = models.FileField(upload_to = 'avatar', null=True, blank =True)
+
     user = models.OneToOneField(User, unique = True)
+
+    def __unicode__(self):
+        return '%s' % (self.user)
 
 class Article(models.Model):
     title = models.CharField(max_length = 100)
     slug = AutoSlugField(populate_from='title')
     body = models.TextField()
     creation_date = models.DateTimeField(auto_now_add=True)
-    image = models.FileField(upload_to = 'avatar')
+    image = models.FileField(upload_to = 'img_blog')
     is_active = models.BooleanField(default=False)
     # modification_date
-    author = models.ForeignKey(Profil)
+    # author = models.ForeignKey(Profil)
+
+    def __unicode__(self):
+        return '%s' % (self.title)
 
 class Comment(models.Model):
     body = models.CharField(max_length=500)

@@ -6,6 +6,17 @@
     <div class="row">
         <h1>Bienvenue</h1>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            {% for article in articles %}
+            <h3>{{ article.title }}</h3>
+            <p>
+                Créé le {{article.creation_date}}
+            </p>
+            <img src="/media/{{article.image}}" alt="image blog" />
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 {% endblock %}
