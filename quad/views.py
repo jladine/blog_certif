@@ -50,8 +50,18 @@ class DashboardView(TemplateView):
 
         return context
 
+class ArticleCreateView(CreateView):
+    template_name = 'create_article.html'
+    form_class = ArticleForm
+    success_url = reverse_lazy('backoffice')
+
 class ArticleUpdateView(UpdateView):
     model = Article
     fields = "__all__"
     template_name = 'update_article.html'
+    success_url = reverse_lazy('backoffice')
+
+class ArticleDeleteView(DeleteView):
+    model = Article
+    template_name = 'delete_article.html'
     success_url = reverse_lazy('backoffice')

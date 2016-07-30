@@ -3,24 +3,35 @@
 {% block content %}
 
 <div class="container">
-    <div class="col-md-6">
-        <h3>Article publiés</h3>
-        <ul>
-            {% for article in articles_on %}
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'create_article' %}">Créer un article</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Article publiés</h3>
+            <ul>
+                {% for article in articles_on %}
+                <li>
+                    <a href="#">{{article.title}}</a>
+                    <a href="update/article/{{article.slug}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a href="delete/article/{{article.slug}}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h3>Article non publié</h3>
+            <ul>
+                {% for article in articles_off %}
                 <li>
                     <a href="#">{{article.title}}</a>
                     <a href="update/article/{{article.slug}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="col-md-6">
-        <h3>Article non publié</h3>
-        <ul>
-            {% for article in articles_off %}
-            <li><a href="update/article/{{article.slug}}">{{article.title}}</a></li>
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
 

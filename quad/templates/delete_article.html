@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<fieldset>
+    <legend>Supprimer cet article?</legend>
+    <form action="{{ request.path }}" method="POST">
+        {% csrf_token %}
+        {{ form.errors }}
+        <button class="btn btn-danger" type="submit">Supprimer</button>
+        <a class="btn btn-default" href="{% url 'backoffice' %}">Annuler</a>
+    </form>
+</fieldset>
+{% endblock %}

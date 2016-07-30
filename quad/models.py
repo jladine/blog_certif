@@ -14,11 +14,11 @@ class Profil(models.Model):
         return '%s' % (self.user)
 
 class Article(models.Model):
-    title = models.CharField(max_length = 100)
+    title = models.CharField(max_length=100, unique=True)
     slug = AutoSlugField(populate_from='title')
     body = models.TextField()
     creation_date = models.DateTimeField(auto_now_add=True)
-    image = models.FileField(upload_to = 'img_blog')
+    image = models.FileField(upload_to='img_blog')
     is_active = models.BooleanField(default=False)
     # modification_date
     # author = models.ForeignKey(Profil)
