@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^register$', RegistrationView.as_view(form_class=MyRegistrationForm), name='registration_register'),
     url(r'^accounts/', include('registration.auth_urls')),
     url(r'^$', homepage),
+    
 ]

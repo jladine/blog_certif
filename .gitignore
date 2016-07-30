@@ -3,4 +3,5 @@ bower_components/
 *.css
 *.map
 site_settings.py
+db.sqlite3
 

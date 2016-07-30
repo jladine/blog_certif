@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Déconnexion{% endblock %}
+{% block content %}
+<div class="container logout">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <div class="text-center">
+                <h4>Vous êtes déconnecté</h4>
+                <p id="redirection"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+// redirect to google after 5 seconds
+$(document).ready(function() {
+    var time = 3;
+
+    setInterval(function() {
+        $("#redirection").text("Redirection dans " + time + " secondes.");
+        if (time === 0) {
+            window.location.href = '/';
+        }
+        time--;
+    }, 1000);
+});
+</script>
+
+{% endblock %}

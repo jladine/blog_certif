@@ -1,0 +1,43 @@
+<nav class="navbar navbar-inverse header">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Blog</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
+                <li><a href="#">Lien 1</a></li>
+                <li><a href="#">Lien 2</a></li>
+                <li><a href="#">Lien 3</a></li>
+                {% else %}
+                <li><a href="{% url 'auth_login' %}">Lien 1</a></li>
+                <li><a href="{% url 'auth_login' %}">Lien 2</a></li>
+                <li><a href="{% url 'auth_login' %}">Lien 3</a></li>
+                {% endif %}
+            </ul>
+
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_superuser %}
+                <li><a href="admin/">Backoffice</a> </li>
+                {% endif %}
+                <li><a href="#">Mon compte</a> </li>
+                <li><a href="{% url 'auth_logout' %}">Déconnexion</a></li>
+            </ul>
+            {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'auth_login' %}">Se Connecter</a></li>
+                <li><a href="{% url 'registration_register' %}">Inscription</a></li>
+            </ul>
+            {% endif %}
+
+        </div>
+    </div>
+</nav>
