@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from registration.views import RegistrationView as BaseRegistrationView
 from django.contrib.auth import authenticate, get_user_model, login
@@ -28,10 +28,6 @@ class RegistrationView(BaseRegistrationView):
     def get_success_url(self, user):
         return '/'
 
-
-# def homepage(request):
-#     return render(request,"homepage.html")
-
 class HomepageView(ListView):
     model = Article
     template_name = 'homepage.html'
@@ -47,10 +43,10 @@ class DashboardView(TemplateView):
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['articles_on'] = Article.objects.filter(is_active = True)
         context['articles_off'] = Article.objects.filter(is_active = False)
-
         return context
 
-class ArticleCreateView(CreateView):
+class ArticleCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = ('quad.can_add_article','quad.can_change_article', 'quad.can_delete_article')
     template_name = 'create_article.html'
     form_class = ArticleForm
     success_url = reverse_lazy('backoffice')
@@ -65,3 +61,8 @@ class ArticleDeleteView(DeleteView):
     model = Article
     template_name = 'delete_article.html'
     success_url = reverse_lazy('backoffice')
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'detail_article.html'
+    context_object_name = 'article'

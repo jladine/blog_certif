@@ -13,7 +13,11 @@
             <p>
                 Créé le {{article.creation_date}}
             </p>
-            <img src="/media/{{article.image}}" alt="image blog" />
+            <a href="article/{{article.slug}}"><img class="img-responsive" src="/media/{{article.image}}" alt="image blog" /></a>
+            <p>
+
+                {{article.comment_set}} Commentaire
+            </p>
             {% endfor %}
         </div>
     </div>
