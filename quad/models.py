@@ -33,6 +33,9 @@ class Comment(models.Model):
     author = models.ForeignKey(Profil)
     article = models.ForeignKey(Article)
 
+    def __unicode__(self):
+        return '%s' % (self.body)
+
 class Like(models.Model):
     is_like = models.BooleanField(default=False)
 

@@ -18,3 +18,13 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = '__all__'
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        # exclude = ['author']
+        fields = '__all__'
+        widgets = {
+            "author" : forms.HiddenInput(),
+            "article" : forms.HiddenInput(),
+            }

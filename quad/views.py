@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, get_user_model, login
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, FormView, TemplateView
 
 from models import *
-from forms import ArticleForm
+from forms import ArticleForm, CommentForm
 
 User = get_user_model()
 
@@ -66,3 +66,34 @@ class ArticleDetailView(DetailView):
     model = Article
     template_name = 'detail_article.html'
     context_object_name = 'article'
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data(**kwargs)
+        context['comments'] = self.get_object().comment_set.all()
+        context['form'] = CommentForm
+        return context
+
+class CommentCreateView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'create_comment.html'
+    success_url = reverse_lazy('create_comment')
+
+    def get_context_data(self, **kwargs):
+        context = super(CommentCreateView, self).get_context_data(**kwargs)
+        context['comments'] = Comment.objects.filter(article=self.kwargs['article_id'])
+        return context
+
+    def get_form_kwargs(self):
+        form_kwargs = super(CommentCreateView, self).get_form_kwargs()
+        form_kwargs.update({
+            "initial" : {
+                "author" : self.request.user.profil,
+                "article" : self.kwargs['article_id']
+            }
+        })
+        return form_kwargs
+
+    def form_valid(self, form):
+            form.save()
+            return super(CommentCreateView, self).form_valid(form)

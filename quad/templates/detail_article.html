@@ -14,7 +14,18 @@
             </p>
         </div>
     </div>
-    <a href="#">Ajouter commentaire</a>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Commentaires</h2>
+            <ul class="list-unstyled">
+                {% for comment in comments %}
+                <li>{{comment}}</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'create_comment' article.id %}">Commenter</a>
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}
