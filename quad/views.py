@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.urlresolvers import reverse_lazy
+from registration import signals
 from registration.views import RegistrationView as BaseRegistrationView
 from django.contrib.auth import authenticate, get_user_model, login
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, FormView, TemplateView
@@ -77,7 +78,7 @@ class CommentCreateView(CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'create_comment.html'
-    success_url = reverse_lazy('create_comment')
+    success_url = reverse_lazy('homepage')
 
     def get_context_data(self, **kwargs):
         context = super(CommentCreateView, self).get_context_data(**kwargs)
