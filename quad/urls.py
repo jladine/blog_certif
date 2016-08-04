@@ -14,4 +14,8 @@ urlpatterns = [
     url(r'^article/(?P<slug>[\w-]+)$', ArticleDetailView.as_view(), name='detail_article'),
     url(r'^comment/(?P<article_id>\d+)/$', CommentCreateView.as_view(), name='create_comment'),
 
+    url(r'^compte/(?P<pk>\d+)$', UserDetailView.as_view(), name='compte'),
+    url(r'^compte/update/(?P<pk>\d+)$', UserUpdateView.as_view(), name='user_update'),
+
+
 ]

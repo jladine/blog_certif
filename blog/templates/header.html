@@ -28,7 +28,8 @@
                 {% if user.is_superuser %}
                 <li><a href="{% url 'backoffice' %}">Backoffice</a> </li>
                 {% endif %}
-                <li><a href="#">Mon compte</a> </li>
+                <li>Bonjour {{ user }}</li>
+                <li><a href="{% url 'compte' user.pk %}">Mon compte</a> </li>
                 <li><a href="{% url 'auth_logout' %}">Déconnexion</a></li>
             </ul>
             {% else %}

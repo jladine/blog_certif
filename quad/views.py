@@ -98,3 +98,20 @@ class CommentCreateView(CreateView):
     def form_valid(self, form):
             form.save()
             return super(CommentCreateView, self).form_valid(form)
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'profile.html'
+    context_object_name = 'user'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(ArticleDetailView, self).get_context_data(**kwargs)
+    #     context['comments'] = self.get_object().comment_set.all()
+    #     context['form'] = CommentForm
+    #     return context
+
+class UserUpdateView(UpdateView):
+    model = User
+    fields = ["email", "username", "last_name", "first_name"]
+    template_name = 'update_user.html'
+    success_url = reverse_lazy('homepage')

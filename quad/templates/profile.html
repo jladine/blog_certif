@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Création de compte{% endblock %}
+{% block content %}
+<div class="container registration">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>mon Compte</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li>Email : {{user.email}}</li>
+                        <li>Pseudo : {{user.username}}</li>
+                        <li>Nom : {{user.first_name}}</li>
+                        <li>Prénom : {{user.last_name}}</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li><a href="{%url 'user_update' user.id %}">Modifier mes informations</a></li>
+                        <li><a href="{%url 'auth_password_change' %}">Changer mot de passe</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

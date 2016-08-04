@@ -12,10 +12,13 @@ User = get_user_model()
 
 class MyRegistrationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        fields = [User.USERNAME_FIELD, 'password1', 'password2']
+        fields = ['email', User.USERNAME_FIELD, 'password1', 'password2']
         required_css_class = 'required'
 
-
+class UpdateProfile(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name')
 
 class ArticleForm(forms.ModelForm):
     class Meta:
@@ -25,7 +28,6 @@ class ArticleForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        # exclude = ['author']
         fields = '__all__'
         widgets = {
             "author" : forms.HiddenInput(),
