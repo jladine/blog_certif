@@ -1,0 +1,58 @@
+.navbar{
+    margin-bottom: 0;
+}
+
+.navbar-inverse, footer{
+    background-color: #EDEDED;
+    border-color: #EDEDED;
+}
+
+.container{
+    background-color: #F7F7F7;
+}
+
+// .article-home {
+//     margin: 1%;
+//     width: 31%;
+//     display: inline-block;
+// }
+
+.nav-vertical{
+    border: 1px solid black;
+}
+
+.zone-comment{
+    margin-top: 3em;
+    h2{
+        margin-bottom: 1em;
+    }
+    .comment{
+        border: 1px solid #F9F9F9;
+        margin: 1em;
+        padding: 1em;
+        background-color: #FBFBFB;
+        border-radius: 5px;
+
+    }
+}
+.creation-comment{
+    background-color: #FBFBFB;
+    .form-comment{
+        // text-align: center;
+        // width: 60%;
+        // height: 5em;
+
+    }
+    #id_body{
+        width: 80%;
+        height: 3em;
+        border: #EDEDED 1px solid;
+        border-radius: 5px;
+
+    }
+    .commit{
+        margin: 1em;
+        background-color: #F7F7F7;
+        border: #EDEDED 1px solid;
+    }
+}

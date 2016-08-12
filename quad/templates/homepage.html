@@ -1,20 +1,28 @@
-{% extends "base.html" %}
-{% load staticfiles %}
-{% block content %}
+{% extends "base.html" %} {% load staticfiles %} {% block content %}
 
-<div class="container homepage">
+<div class="container-fluide">
+    <img class="img-responsive" src="/static/img/img-home.png" alt="quad" />
+</div>
+<div class="container">
     <div class="row">
-        <h1>Bienvenue</h1>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-9">
             {% for article in articles %}
-            <h3>{{ article.title }}</h3>
-            <p>
-                Créé le {{article.creation_date}}
-            </p>
-            <a href="article/{{article.slug}}"><img class="img-responsive" src="/media/{{article.image}}" alt="image blog" /></a>
+            <div class="article-home">
+
+                <h3>{{ article.title }}</h3>
+                <p>
+                    Créé le {{article.creation_date}}
+                </p>
+                <a href="article/{{article.slug}}"><img class="img-responsive" src="/media/{{article.image}}" alt="image blog" /></a>
+
+            </div>
             {% endfor %}
+        </div>
+        <div class="col-md-3 nav-vertical">
+            <h2>Derniers articles :</h2>
+            <h2>Articles les plus populaire :</h2>
+            <h2>Partenaires :</h2>
+
         </div>
     </div>
 </div>

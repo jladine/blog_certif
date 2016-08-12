@@ -4,22 +4,39 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <h2>Commentaires</h2>
-            <ul class="list-unstyled">
-                {% for comment in comments %}
-                <li>{{comment}}</li>
-                {% endfor %}
-            </ul>
+        <div class="col-md-12">
+            <div class="zone-comment">
+                <h2>Tout les commentaires</h2>
+                <ul class="list-unstyled">
+                    {% for comment in comments %}
+                    <li class="comment">
+                        <div class="row">
+                            <div class="col-md-11">
+                                {{comment}}
+                            </div>
+                            <div class="col-md-1">
+                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="creation-comment">
+                <p>
+                    Votre commentaire :
+                </p>
+                <form class="form-comment text-center" action="{{request.path}}" method="POST">
+                    {% csrf_token %}
+                    {{form.author}}
+                    {{form.body}}
+                    {{form.article}}
+                    <button class="btn btn-secondary commit" type="submit">Envoyer</button>
+                </form>
+            </div>
         </div>
+
     </div>
-
-
-    <form class="" action="{{request.path}}" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <button type="submit">Poster</button>
-    </form>
 </div>
 
 {% endblock %}
