@@ -5,7 +5,7 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
             {% for article in articles %}
             <div class="article-home">
 
@@ -18,9 +18,21 @@
             </div>
             {% endfor %}
         </div>
-        <div class="col-md-3 nav-vertical">
+        <div class="col-md-4 nav-vertical">
             <h2>Derniers articles :</h2>
+            <div class="one-time">
+
+                {% for article in articles %}
+                <img class="img-responssive" src="/media/{{article.image}}" alt="">
+                {% endfor %}
+            </div>
             <h2>Articles les plus populaire :</h2>
+            <div class="one-time">
+
+                {% for article in popular_article %}
+                <img class="img-responssive" src="/media/{{article.image}}" alt="">
+                {% endfor %}
+            </div>
             <h2>Partenaires :</h2>
 
         </div>

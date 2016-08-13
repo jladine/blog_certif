@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from registration import signals
+from django.db.models import Count
 from registration.views import RegistrationView as BaseRegistrationView
 from django.contrib.auth import authenticate, get_user_model, login
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, FormView, TemplateView
@@ -33,7 +34,13 @@ class HomepageView(ListView):
     model = Article
     template_name = 'homepage.html'
     context_object_name = 'articles'
-    queryset = Article.objects.order_by("creation_date").filter(is_active = True)
+    queryset = Article.objects.order_by("creation_date").filter(is_active = True)[::-1]
+    def get_context_data(self, **kwargs):
+        context = super(HomepageView, self).get_context_data(**kwargs)
+        context['popular_article'] = Article.objects.annotate(vote_count=Count('comment')).order_by('-vote_count')[:2]
+        return context
+    # print Article.objects.order_by("creation_date").filter(is_active = True)[:3:-1]
+    # print Article.objects.annotate(vote_count=Count('comment')).order_by('-vote_count')
 
 class DashboardView(TemplateView):
     template_name = 'dashboard.html'
