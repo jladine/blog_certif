@@ -18,6 +18,7 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.0",
     "font-awesome": "fontawesome#^4.6.3",
-    "slick-carousel": "^1.6.0"
+    "slick-carousel": "^1.6.0",
+    "hover3d": "https://github.com/ariona/hover3d.git#^1.0.0"
   }
 }
