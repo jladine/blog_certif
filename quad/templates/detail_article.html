@@ -1,37 +1,78 @@
 {% extends "base.html" %} {% load staticfiles %} {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            <img class="img-responsive" src="/media/{{article.image}}" alt="image article" />
+<div class="container first-container">
+    <div class="main">
+        <h1 class="title-detail text-center">Essaie du {{article.title}}</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <img class="img-responsive" src="/media/{{article.image}}" alt="image article" />
+            </div>
+            <div class="col-md-4">
+                <p>
+                    {{article.body}}
+                </p>
+                <div class="row info">
+                    <div class="col-md-6">
+                        Créé le {{article.creation_date}}
+                    </div>
+                    <div class="col-md-6">
+                        Commentaires({{nb_comment}})
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <p>
-                <h1 class="text-center">{{article.title}}</h1> {{article.body}}
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-2 col-md-8">
-            <div class="zone-comment">
-                <h2 class="text-center">Derniers commentaires</h2>
-                <ul class="list-unstyled">
-                    {% for comment in comments %}
-                    <li class="comment">
-                        <div class="row">
-                            <div class="col-md-11">
+        <div class="row">
+
+            <div class="col-md-offset-2 col-md-4">
+                <div class="zone-comment">
+                    <h2 class="text-center">Derniers commentaires</h2>
+                    <ul class="list-unstyled">
+                        {% for comment in last_comments %}
+                        <li class="comment">
+                            <p>
                                 {{comment}}
-                            </div>
-                            <div class="col-md-1">
-                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-                <a href="{% url 'create_comment' article.id %}">Commenter</a>
+                            </p>
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'create_comment' article.id %}">Tout les commentaires</a>
+                </div>
             </div>
 
+            <div class="col-md-4">
+                <div class="zone-comment">
+                    <h2 class="text-center">Les plus populaires</h2>
+                    <ul class="list-unstyled">
+                        {% for comment in last_comments %}
+                        <li class="comment">
+                            <p>
+                                {{comment}}
+                            </p>
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'create_comment' article.id %}">Tout les commentaires</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="last-articles">
+                    <h3>Derniers articles :</h3>
+                    <div class="three-time">
+                        {% for article in last_article %}
+                        <a href="article/{{article.slug}}">
+                            <img class="img-responssive" src="/media/{{article.image}}" alt="article">
+                        </a>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 

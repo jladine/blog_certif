@@ -33,14 +33,15 @@ class RegistrationView(BaseRegistrationView):
 class HomepageView(ListView):
     model = Article
     template_name = 'homepage.html'
-    context_object_name = 'articles'
+    # context_object_name = 'articles'
     queryset = Article.objects.order_by("creation_date").filter(is_active = True)[::-1]
     def get_context_data(self, **kwargs):
         context = super(HomepageView, self).get_context_data(**kwargs)
         context['popular_article'] = Article.objects.annotate(vote_count=Count('comment')).order_by('-vote_count')[:2]
+        context['articles'] = Article.objects.annotate(comment_count=Count('comment')).all()
         return context
     # print Article.objects.order_by("creation_date").filter(is_active = True)[:3:-1]
-    # print Article.objects.annotate(vote_count=Count('comment')).order_by('-vote_count')
+    # print len(Article.objects.comment)
 
 class DashboardView(TemplateView):
     template_name = 'dashboard.html'
@@ -77,7 +78,9 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
-        context['comments'] = self.get_object().comment_set.all()
+        context['last_comments'] = self.get_object().comment_set.order_by("creation_date").reverse()[:3]
+        context['nb_comment'] = len(self.get_object().comment_set.all())
+        context['last_article'] = Article.objects.order_by("creation_date").filter(is_active = True).reverse()[:5]
         context['form'] = CommentForm
         return context
 
