@@ -71,7 +71,7 @@ nav{
     width: 100%;
 }
 
-.container{
+.container-home{
     background-color: #F7F7F7;
 }
 
@@ -132,12 +132,7 @@ nav{
 }
 .creation-comment{
     background-color: #FBFBFB;
-    .form-comment{
-        // text-align: center;
-        // width: 60%;
-        // height: 5em;
 
-    }
     #id_body{
         width: 80%;
         height: 3em;
@@ -154,4 +149,28 @@ nav{
 
 .partenaire{
     margin: 1em 0;
+}
+
+footer{
+    background-color: rgba(10,10,10,0.8);
+    h3{
+        color:#DFE3E5;
+    }
+    ul{
+        li{
+            a{
+                color: #DFE3E5;
+            }
+            a:hover{
+                text-decoration: none;
+                color: #757575;
+            }
+        }
+    }
+    .foot{
+        p{
+            margin: 0;
+            color: #DFE3E5;
+        }
+    }
 }
