@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% load staticfiles %} {% block content %}
 
-<div class="container-fluide">
-    <img class="img-responsive" src="/static/img/img-home.png" alt="quad" />
-</div>
+<!-- <div class="container-fluide">
+    <img class="img-responsive img-head" src="/static/img/img-home3.png" alt="quad" />
+</div> -->
 <div class="container">
-    <div class="row">
+    <div class="row main">
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-offset-1 col-md-10">
@@ -34,14 +34,18 @@
                     <div class="one-time">
 
                         {% for article in articles %}
-                        <img class="img-responssive" src="/media/{{article.image}}" alt="">
+                        <a href="article/{{article.slug}}">
+                            <img class="img-responssive" src="/media/{{article.image}}" alt="article">
+                        </a>
                         {% endfor %}
                     </div>
                     <h3>Articles les plus populaire :</h3>
                     <div class="one-time">
 
                         {% for article in popular_article %}
-                        <img class="img-responssive" src="/media/{{article.image}}" alt="">
+                        <a href="article/{{article.slug}}">
+                            <img class="img-responssive" src="/media/{{article.image}}" alt="article">
+                        </a>
                         {% endfor %}
                     </div>
                     <h3>Partenaires :</h3>
@@ -53,27 +57,27 @@
                         </div>
                         <div class="col-md-6 partenaire">
                             <a href="http://www.quad-passion.fr/" target="_blank">
-                                <img class="img-responsive" src="/static/img/part2.jpg">
+                                <img class="img-responsive" src="/static/img/part2.jpg" alt="article">
                             </a>
                         </div>
                         <div class="col-md-6 partenaire">
                             <a href="http://www.quad-passion.fr/" target="_blank">
-                                <img class="img-responsive" src="/static/img/part3.jpg">
+                                <img class="img-responsive" src="/static/img/part3.jpg" alt="article">
                             </a>
                         </div>
                         <div class="col-md-6 partenaire">
                             <a href="http://www.quad-passion.fr/" target="_blank">
-                                <img class="img-responsive" src="/static/img/part4.jpg">
+                                <img class="img-responsive" src="/static/img/part4.jpg" alt="article">
                             </a>
                         </div>
                         <div class="col-md-6 partenaire">
                             <a href="http://www.quad-passion.fr/" target="_blank">
-                                <img class="img-responsive" src="/static/img/part5.jpg">
+                                <img class="img-responsive" src="/static/img/part5.jpg" alt="article">
                             </a>
                         </div>
                         <div class="col-md-6 partenaire">
                             <a href="http://www.quad-passion.fr/" target="_blank">
-                                <img class="img-responsive" src="/static/img/part6.jpg">
+                                <img class="img-responsive" src="/static/img/part6.jpg" alt="article">
                             </a>
                         </div>
 
@@ -81,32 +85,32 @@
                     <h3>Constructeur :</h3>
                     <div class="col-md-6 partenaire">
                         <a href="http://www.quad-passion.fr/" target="_blank">
-                            <img class="img-responsive" src="/static/img/cons1.jpg">
+                            <img class="img-responsive" src="/static/img/cons1.jpg" alt="article">
                         </a>
                     </div>
                     <div class="col-md-6 partenaire">
                         <a href="http://www.quad-passion.fr/" target="_blank">
-                            <img class="img-responsive" src="/static/img/cons2.jpg">
+                            <img class="img-responsive" src="/static/img/cons2.jpg" alt="article">
                         </a>
                     </div>
                     <div class="col-md-6 partenaire">
                         <a href="http://www.quad-passion.fr/" target="_blank">
-                            <img class="img-responsive" src="/static/img/cons3.jpg">
+                            <img class="img-responsive" src="/static/img/cons3.jpg" alt="article">
                         </a>
                     </div>
                     <div class="col-md-6 partenaire">
                         <a href="http://www.quad-passion.fr/" target="_blank">
-                            <img class="img-responsive" src="/static/img/cons4.jpg">
+                            <img class="img-responsive" src="/static/img/cons4.jpg" alt="article">
                         </a>
                     </div>
                     <div class="col-md-6 partenaire">
                         <a href="http://www.quad-passion.fr/" target="_blank">
-                            <img class="img-responsive" src="/static/img/cons5.jpg">
+                            <img class="img-responsive" src="/static/img/cons5.jpg" alt="article">
                         </a>
                     </div>
                     <div class="col-md-6 partenaire">
                         <a href="http://www.quad-passion.fr/" target="_blank">
-                            <img class="img-responsive" src="/static/img/cons6.jpg">
+                            <img class="img-responsive" src="/static/img/cons6.jpg" alt="article">
                         </a>
                     </div>
                 </div>
