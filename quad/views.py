@@ -38,15 +38,13 @@ class HomepageView(ListView):
     def get_context_data(self, **kwargs):
         context = super(HomepageView, self).get_context_data(**kwargs)
         context['popular_article'] = Article.objects.annotate(vote_count=Count('comment')).order_by('-vote_count')[:2]
-        context['articles'] = Article.objects.annotate(comment_count=Count('comment')).all()
+        context['articles'] = Article.objects.annotate(comment_count=Count('comment')).order_by('creation_date').filter(is_active=True).reverse()
         return context
     # print Article.objects.order_by("creation_date").filter(is_active = True)[:3:-1]
     # print len(Article.objects.comment)
 
 class DashboardView(TemplateView):
     template_name = 'dashboard.html'
-    # form_class = ArticleForm
-    # success_url = reverse_lazy('creneau_montoir_previsonnel_list')
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
@@ -99,7 +97,7 @@ class CommentCreateView(CreateView):
         form_kwargs = super(CommentCreateView, self).get_form_kwargs()
         form_kwargs.update({
             "initial" : {
-                "author" : self.request.user.profil,
+                "author" : self.request.user.profil_set,
                 "article" : self.kwargs['article_id']
             }
         })
@@ -114,11 +112,12 @@ class UserDetailView(DetailView):
     template_name = 'profile.html'
     context_object_name = 'user'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(ArticleDetailView, self).get_context_data(**kwargs)
-    #     context['comments'] = self.get_object().comment_set.all()
-    #     context['form'] = CommentForm
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        user = self.object.profil_set
+        context['mycomments'] = Comment.objects.filter(author = user)
+        return context
+
 
 class UserUpdateView(UpdateView):
     model = User

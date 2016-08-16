@@ -10,7 +10,7 @@ from autoslug import AutoSlugField
 class Profil(models.Model):
     avatar = models.FileField(upload_to = 'avatar', null=True, blank =True)
 
-    user = models.OneToOneField(User, unique = True)
+    user = models.OneToOneField(User, unique = True, related_name="profil_set")
 
     def __unicode__(self):
         return '%s' % (self.user)

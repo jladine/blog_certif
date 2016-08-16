@@ -1,24 +1,57 @@
 {% extends "base.html" %}
 {% block title %}Création de compte{% endblock %}
 {% block content %}
-<div class="container registration">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>mon Compte</h1>
-            <div class="row">
-                <div class="col-md-6">
-                    <ul class="list-unstyled">
-                        <li>Email : {{user.email}}</li>
-                        <li>Pseudo : {{user.username}}</li>
-                        <li>Prénom : {{user.first_name}}</li>
-                        <li>Nom : {{user.last_name}}</li>
-                    </ul>
+<div class="container registration first-container">
+    <div class="main">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h1>mon Compte</h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li>Email : {{user.email}}</li>
+                            <li>Pseudo : {{user.username}}</li>
+                            <li>Prénom : {{user.first_name}}</li>
+                            <li>Nom : {{user.last_name}}</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li><a href="{%url 'user_update' user.id %}">Modifier mes informations</a></li>
+                            <li><a href="{%url 'auth_password_change' %}">Changer mot de passe</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <ul class="list-unstyled">
-                        <li><a href="{%url 'user_update' user.id %}">Modifier mes informations</a></li>
-                        <li><a href="{%url 'auth_password_change' %}">Changer mot de passe</a></li>
-                    </ul>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>Mes commentaires</h2>
+                        {%for comment in mycomments%}
+                        <p>
+                            {{comment}}
+                        </p>
+
+                        {%endfor%}
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Mes commentaires liké</h2>
+                        {%for comment in mycomments%}
+                        <p>
+                            {{comment}}
+                        </p>
+
+                        {%endfor%}
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Commentaires que j'ai liké</h2>
+                        {%for comment in mycomments%}
+                        <p>
+                            {{comment}}
+                        </p>
+
+                        {%endfor%}
+                    </div>
+
                 </div>
             </div>
         </div>
