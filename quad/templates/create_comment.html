@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-{% load staticfiles %}
-{% block content %}
+{% extends "base.html" %} {% load staticfiles %} {% block content %}
 
 <div class="container">
     <div class="row">
@@ -8,14 +6,25 @@
             <div class="zone-comment">
                 <h2>Tout les commentaires</h2>
                 <ul class="list-unstyled">
-                    {% for comment in comments %}
+                    {% for comment,form in object_list.items %}
                     <li class="comment">
                         <div class="row">
                             <div class="col-md-11">
-                                {{comment}}
+                                {{comment.body}}
                             </div>
                             <div class="col-md-1">
-                                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+
+                                <form method="post" action="{% url 'my_form_view_url' %}">
+                                    {% csrf_token %}
+                                    {{form.author}}
+                                    {{form.comment}}
+                                    {{form.is_like}}
+                                    <button type="submit" class="btn btn-primary"> J'aime</button>
+                                    <!-- <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> -->
+
+                                </form>
+
+
                             </div>
                         </div>
                     </li>
@@ -27,10 +36,7 @@
                     Votre commentaire :
                 </p>
                 <form class="form-comment text-center" action="{{request.path}}" method="POST">
-                    {% csrf_token %}
-                    {{form.author}}
-                    {{form.body}}
-                    {{form.article}}
+                    {% csrf_token %} {{form.author}} {{form.body}} {{form.article}}
                     <button class="btn btn-secondary commit" type="submit">Envoyer</button>
                 </form>
             </div>

@@ -39,10 +39,9 @@ class Comment(models.Model):
         return '%s' % (self.body)
 
 class Like(models.Model):
-    is_like = models.BooleanField(default=False)
-
     author = models.ForeignKey(Profil)
     comment = models.ForeignKey(Comment)
+
 
 @receiver(post_save, sender=User)
 def create_user_profil(sender, instance, created, **kwargs):

@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.urlresolvers import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from registration import signals
 from django.db.models import Count
 from registration.views import RegistrationView as BaseRegistrationView
@@ -9,7 +10,7 @@ from django.contrib.auth import authenticate, get_user_model, login
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, FormView, TemplateView
 
 from models import *
-from forms import ArticleForm, CommentForm
+from forms import ArticleForm, CommentForm, LikeForm
 
 User = get_user_model()
 
@@ -79,8 +80,9 @@ class ArticleDetailView(DetailView):
         context['last_comments'] = self.get_object().comment_set.order_by("creation_date").reverse()[:3]
         context['nb_comment'] = len(self.get_object().comment_set.all())
         context['last_article'] = Article.objects.order_by("creation_date").filter(is_active = True).reverse()[:5]
-        context['form'] = CommentForm
         return context
+
+
 
 class CommentCreateView(CreateView):
     model = Comment
@@ -88,9 +90,34 @@ class CommentCreateView(CreateView):
     template_name = 'create_comment.html'
     success_url = reverse_lazy('homepage')
 
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super(CommentCreateView, self).dispatch(request, *args, **kwargs)
+
+
     def get_context_data(self, **kwargs):
         context = super(CommentCreateView, self).get_context_data(**kwargs)
-        context['comments'] = Comment.objects.filter(article=self.kwargs['article_id'])
+        # context['comments'] = Comment.objects.filter(article=self.kwargs['article_id'])
+        # self.comment = Comment.objects.get(id=kwargs["pk"])
+        # comments = Comment.objects.filter(article=self.kwargs['article_id'])
+
+
+
+
+        comments = {}
+        for comment in Comment.objects.filter(article=self.kwargs['article_id']):
+            comments[comment] = LikeForm({
+                            'author': self.request.user.profil_set,
+                            'comment': comment
+                            })
+
+        context["object_list"] = comments
+
+        # MyForm = LikeForm({
+        #                 'author': self.request.user.profil_set,
+        #                 'comment': self.kwargs['comment_set']
+        #                 })
+        # context['likeform'] = MyForm
         return context
 
     def get_form_kwargs(self):
@@ -124,3 +151,34 @@ class UserUpdateView(UpdateView):
     fields = ["email", "username", "last_name", "first_name"]
     template_name = 'update_user.html'
     success_url = reverse_lazy('homepage')
+
+class LikeFormView(FormView):
+    form_class = LikeForm
+    success_url = reverse_lazy('homepage')
+    # form = LikeForm(initial = {'author':1})
+
+
+    # def get_initial(self):
+    #     initial = super(LikeFormView, self).get_initial()
+    #
+    #     initial['author'] = self.request.user.profil_set,
+    #     initial['is_like'] = True,
+    #
+    #     return initial
+
+    # def get_form_kwargs(self):
+    #     form_kwargs = super(LikeFormView, self).get_form_kwargs()
+    #     form_kwargs.update({
+    #         "initial" : {
+    #             "author" : self.request.user.profil_set,
+    #             "article" : 2
+    #         }
+    #     })
+    #     return form_kwargs
+
+
+
+
+    def form_valid(self, form):
+            form.save()
+            return super(LikeFormView, self).form_valid(form)
