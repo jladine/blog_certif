@@ -35,22 +35,27 @@
                     </div>
                     <div class="col-md-4">
                         <h2>Mes commentaires liké</h2>
-                        {%for comment in mycomments%}
+                        {%for comment in mycommentslike%}
                         <p>
                             {{comment}}
+                        </p>
+                        <p>
+
+                            <!-- {{othercommentslike}} -->
                         </p>
 
                         {%endfor%}
                     </div>
                     <div class="col-md-4">
                         <h2>Commentaires que j'ai liké</h2>
-                        {%for comment in mycomments%}
+                        {%for comment in othercommentslike%}
                         <p>
                             {{comment}}
                         </p>
 
                         {%endfor%}
                     </div>
+
 
                 </div>
             </div>

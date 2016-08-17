@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from registration import signals
-from django.db.models import Count
+from django.db.models import Count, Prefetch
 from registration.views import RegistrationView as BaseRegistrationView
 from django.contrib.auth import authenticate, get_user_model, login
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, FormView, TemplateView
@@ -15,7 +15,6 @@ from forms import ArticleForm, CommentForm, LikeForm
 User = get_user_model()
 
 class RegistrationView(BaseRegistrationView):
-
     def register(self, form):
         new_user = form.save()
         new_user = authenticate(
@@ -34,15 +33,12 @@ class RegistrationView(BaseRegistrationView):
 class HomepageView(ListView):
     model = Article
     template_name = 'homepage.html'
-    # context_object_name = 'articles'
     queryset = Article.objects.order_by("creation_date").filter(is_active = True)[::-1]
     def get_context_data(self, **kwargs):
         context = super(HomepageView, self).get_context_data(**kwargs)
         context['popular_article'] = Article.objects.annotate(vote_count=Count('comment')).order_by('-vote_count')[:2]
         context['articles'] = Article.objects.annotate(comment_count=Count('comment')).order_by('creation_date').filter(is_active=True).reverse()
         return context
-    # print Article.objects.order_by("creation_date").filter(is_active = True)[:3:-1]
-    # print len(Article.objects.comment)
 
 class DashboardView(TemplateView):
     template_name = 'dashboard.html'
@@ -75,14 +71,24 @@ class ArticleDetailView(DetailView):
     template_name = 'detail_article.html'
     context_object_name = 'article'
 
+
+    # article = Article.objects.get(id=1)
+    # print article.comment_set.like_set
+    # # article2 = Article.comment_set.get(id=1)
+    # # print article2
+    #
+    #
+    # comment = Comment.objects.get(id=1)
+    # print comment.like_set.count()
+
+
     def get_context_data(self, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
         context['last_comments'] = self.get_object().comment_set.order_by("creation_date").reverse()[:3]
-        context['nb_comment'] = len(self.get_object().comment_set.all())
+        context['nb_comment'] = self.get_object().comment_set.count()
         context['last_article'] = Article.objects.order_by("creation_date").filter(is_active = True).reverse()[:5]
+        # context['nb_like'] = self.get_object().comment_set
         return context
-
-
 
 class CommentCreateView(CreateView):
     model = Comment
@@ -97,12 +103,6 @@ class CommentCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CommentCreateView, self).get_context_data(**kwargs)
-        # context['comments'] = Comment.objects.filter(article=self.kwargs['article_id'])
-        # self.comment = Comment.objects.get(id=kwargs["pk"])
-        # comments = Comment.objects.filter(article=self.kwargs['article_id'])
-
-
-
 
         comments = {}
         for comment in Comment.objects.filter(article=self.kwargs['article_id']):
@@ -110,14 +110,7 @@ class CommentCreateView(CreateView):
                             'author': self.request.user.profil_set,
                             'comment': comment
                             })
-
         context["object_list"] = comments
-
-        # MyForm = LikeForm({
-        #                 'author': self.request.user.profil_set,
-        #                 'comment': self.kwargs['comment_set']
-        #                 })
-        # context['likeform'] = MyForm
         return context
 
     def get_form_kwargs(self):
@@ -141,9 +134,20 @@ class UserDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(UserDetailView, self).get_context_data(**kwargs)
-        user = self.object.profil_set
+        user = self.object.profil_set.id
+        comment_like = self.object.profil_set.like_set
         context['mycomments'] = Comment.objects.filter(author = user)
+        context['mycommentslike'] = Comment.objects.annotate(like_count=Count('like_set')).filter(author = user).order_by('like_count').reverse()
+        # context['othercommentslike'] = Comment.objects.prefetch_related(Prefetch("like_set",
+        #                                                                          queryset = Like.objects.filter(author=2),
+        #                                                                         )
+        #                                                                 )
+        # self.object.profil_set.like_set.count()
+
+
+
         return context
+
 
 
 class UserUpdateView(UpdateView):
@@ -155,29 +159,6 @@ class UserUpdateView(UpdateView):
 class LikeFormView(FormView):
     form_class = LikeForm
     success_url = reverse_lazy('homepage')
-    # form = LikeForm(initial = {'author':1})
-
-
-    # def get_initial(self):
-    #     initial = super(LikeFormView, self).get_initial()
-    #
-    #     initial['author'] = self.request.user.profil_set,
-    #     initial['is_like'] = True,
-    #
-    #     return initial
-
-    # def get_form_kwargs(self):
-    #     form_kwargs = super(LikeFormView, self).get_form_kwargs()
-    #     form_kwargs.update({
-    #         "initial" : {
-    #             "author" : self.request.user.profil_set,
-    #             "article" : 2
-    #         }
-    #     })
-    #     return form_kwargs
-
-
-
 
     def form_valid(self, form):
             form.save()

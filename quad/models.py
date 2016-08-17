@@ -40,7 +40,7 @@ class Comment(models.Model):
 
 class Like(models.Model):
     author = models.ForeignKey(Profil)
-    comment = models.ForeignKey(Comment)
+    comment = models.ForeignKey(Comment, related_name="like_set")
 
 
 @receiver(post_save, sender=User)
