@@ -76,6 +76,10 @@ nav{
 
 .article-home {
     margin-top: 2em;
+	img{
+		border: 4px solid grey;
+		border-radius: 5px;
+	}
 }
 
 .wrapper {
@@ -114,7 +118,7 @@ nav{
 .one-time {
     a{
         img{
-            height: 221px;
+            height: 195px;
         }
     }
 }
