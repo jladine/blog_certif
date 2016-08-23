@@ -12,4 +12,13 @@ $(document).ready(function(){
   $(function(){
 		$('#menu').slicknav();
 	});
+
+    setInterval(function() {
+        var time = 3;
+        $("#redirection").text("Redirection dans " + time + " secondes.");
+        if (time === 0) {
+            window.location.href = '/';
+        }
+        time--;
+    }, 1000);
 });

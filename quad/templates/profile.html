@@ -5,11 +5,11 @@
 <div class="container registration first-container">
     <div class="main">
 
-        <div class="row">
+        <div class="row user-detail">
             <div class="col-md-12">
-                <h1>mon Compte</h1>
-                <div class="row">
-                    <div class="col-md-6">
+                <h1 class="text-center">Mon Compte</h1>
+                <div class="row info-compte">
+                    <div class="col-md-6 text-center">
                         <div class="row">
                             <div class="col-md-6">
                                 {% avatar user %}
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 text-center">
                         <ul class="list-unstyled">
                             <li><a href="{%url 'user_update' user.id %}">Modifier mes informations</a></li>
                             <li><a href="{% url 'avatar_change' %}">Changer son avatar</a></li>
@@ -33,23 +33,23 @@
                         </ul>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row info-comments">
                     <div class="col-md-4">
-                        <h2>Mes commentaires</h2>
+                        <h2 class="text-center">Mes commentaires</h2>
                         {%for comment in mycomments%}
-                        <p>
+                        <p class="text-center">
                             {{comment}}
                         </p>
 
                         {%endfor%}
                     </div>
                     <div class="col-md-4">
-                        <h2>Mes commentaires liké</h2>
+                        <h2 class="text-center">Mes commentaires liké</h2>
                         {%for comment in mycommentslike%}
-                        <p>
+                        <p class="text-center">
                             {{comment}}
                         </p>
-                        <p>
+                        <p class="text-center">
 
                             <!-- {{othercommentslike}} -->
                         </p>
@@ -57,7 +57,7 @@
                         {%endfor%}
                     </div>
                     <div class="col-md-4">
-                        <h2>Commentaires que j'ai liké</h2>
+                        <h2 class="text-center">Commentaires que j'ai liké</h2>
                         {%for comment in othercommentslike%}
                         <p>
                             {{comment}}

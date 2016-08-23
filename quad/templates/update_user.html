@@ -2,25 +2,46 @@
 {% load staticfiles %}
 {% block content %}
 
-<div class="container">
+<div class="container first-container">
     <div class="main">
-        <form role="form" name="form" action="{{request.path}}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form.avatar.label_tag}}
-            {{form.avatar}}
-            {{form.email.label_tag}}
-            {{form.email}}
-            {{form.username.label_tag}}
-            {{form.username}}
-            {{form.last_name.label_tag}}
-            {{form.last_name}}
-            {{form.first_name.label_tag}}
-            {{form.first_name}}
-
-            {{form.errors}}
-
-            <button type="submit" class="btn btn-primary"> Modifier</button>
-        </form>
+        <h1 class="h1-update-user text-center">Modification de mes informations</h1>
+        <div class="form-update-user text-center">
+            <form role="form" name="form" action="{{request.path}}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p>
+                    {{form.avatar.label_tag}}
+                </p>
+                <p>
+                    {{form.avatar}}
+                </p>
+                <p>
+                    {{form.email.label_tag}}
+                </p>
+                <p>
+                    {{form.email}}
+                </p>
+                <p>
+                    {{form.username.label_tag}}
+                </p>
+                <p>
+                    {{form.username}}
+                </p>
+                <p>
+                    {{form.last_name.label_tag}}
+                </p>
+                <p>
+                    {{form.last_name}}
+                </p>
+                <p>
+                    {{form.first_name.label_tag}}
+                </p>
+                <p>
+                    {{form.first_name}}
+                </p>
+                {{form.errors}}
+                <button type="submit" class="btn btn-primary"> Modifier</button>
+            </form>
+        </div>
     </div>
 </div>
 
