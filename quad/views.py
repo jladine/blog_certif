@@ -159,7 +159,7 @@ class UserUpdateView(UpdateView):
 class LikeFormView(FormView):
     form_class = LikeForm
     success_url = reverse_lazy('homepage')
-
+    
     def form_valid(self, form):
             form.save()
             return super(LikeFormView, self).form_valid(form)

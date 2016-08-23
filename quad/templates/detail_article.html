@@ -68,7 +68,7 @@
                     <h3>Derniers articles :</h3>
                     <div class="three-time">
                         {% for article in last_article %}
-                        <a href="article/{{article.slug}}">
+                        <a href={% url 'detail_article' article.slug %}>
                             <img class="img-responssive" src="/media/{{article.image}}" alt="article">
                         </a>
                         {% endfor %}

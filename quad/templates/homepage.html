@@ -8,7 +8,7 @@
                     <div class="row">
                         {% for article in articles %}
                         <div class="col-md-6 article-home">
-                            <a class="wrapper" href="article/{{article.slug}}">
+                            <a class="wrapper" href={% url 'detail_article' article.slug %}>
                                 <div class="text">
                                     <h2>{{ article.title }}</h2>
                                     <p>
@@ -30,7 +30,7 @@
                     <div class="one-time">
 
                         {% for article in popular_article %}
-                        <a href="article/{{article.slug}}">
+                        <a href={% url 'detail_article' article.slug %}>
                             <img class="img-responssive" src="/media/{{article.image}}" alt="article">
                         </a>
                         {% endfor %}
