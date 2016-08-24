@@ -1,30 +1,32 @@
-{% extends "base.html" %}
-{% block title %}Création de compte{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block title %}Création de compte{% endblock %} {% block content %}
 <div class="container first-container registration">
-    <div class="main">
+    <div class="main main-inscription">
+        <h1 class="text-center">Inscription</h1>
 
-        <div class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-                <div class="form-signin-heading">
-                    <form role="form" action="{{ request.path }}" method="post">
-                        {% csrf_token %}
-                        {{form}}
-                        <button type="submit" class="btn btn-primary btn-block">Valider</button>
-                        <br>
-                        <p class="text-center"><a href="{% url 'auth_login' %}">Déjà inscrit ?</a></p>
-                    </form>
-                </div>
-            </div>
+        <div class="form-signin-heading text-center">
+            <form role="form" action="{{ request.path }}" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <p>
+                    {{ field.label_tag }}
+                    {{field}}
+                    {{ field.errors }}
+
+                </p>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Valider</button>
+                <br>
+                <p class="text-center"><a href="{% url 'auth_login' %}">Déjà inscrit ?</a></p>
+            </form>
         </div>
     </div>
 </div>
-
+<!--
 <script type="text/javascript">
 $(function reloadForm() {
     $('input').addClass('form-control');
     $('select').addClass('form-control');
 })
-</script>
+</script> -->
 
 {% endblock %}
