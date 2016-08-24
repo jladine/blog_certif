@@ -1,13 +1,13 @@
 {% extends "base.html" %} {% load staticfiles %} {% block content %}
 
 <div class="container first-container">
-    <div class="main">
-        <h1 class="title-detail text-center">Essaie du {{article.title}}</h1>
+    <div class="main main-detail-article">
+        <h1 class="text-center">Essaie du {{article.title}}</h1>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <img class="img-responsive" src="/media/{{article.image}}" alt="image article" />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-offset-1 col-md-4 text-article">
                 <p>
                     {{article.body}}
                 </p>
