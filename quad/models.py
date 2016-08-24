@@ -6,15 +6,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 
-
-# class Profil(models.Model):
-#     avatar = models.FileField(upload_to = 'avatar', null=True, blank =True)
-#
-#     user = models.OneToOneField(User, unique = True, related_name="profil_set")
-#
-#     def __unicode__(self):
-#         return '%s' % (self.user)
-
 class Article(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = AutoSlugField(populate_from='title')
@@ -39,9 +30,3 @@ class Comment(models.Model):
 class Like(models.Model):
     author = models.ForeignKey(User)
     comment = models.ForeignKey(Comment, related_name="like_set")
-
-
-# @receiver(post_save, sender=User)
-# def create_user_profil(sender, instance, created, **kwargs):
-#     if created:
-#             Profil.objects.create(user=instance)

@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container first-container">
-    <div class="main">
+    <div class="main main-create-article text-center">
         <h1>Création d'article</h1>
         <form role="form" name="form" action="{{request.path}}" method="post" enctype="multipart/form-data">
             {% csrf_token %}

@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, get_user_model, login
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, FormView, TemplateView
 
 from models import *
-from forms import ArticleForm, CommentForm, LikeForm
+from forms import ArticleForm, ArticleUpdateForm, CommentForm, LikeForm
 
 User = get_user_model()
 
@@ -57,9 +57,10 @@ class ArticleCreateView(PermissionRequiredMixin, CreateView):
 
 class ArticleUpdateView(UpdateView):
     model = Article
-    fields = "__all__"
+    form_class = ArticleUpdateForm
     template_name = 'update_article.html'
     success_url = reverse_lazy('backoffice')
+
 
 class ArticleDeleteView(DeleteView):
     model = Article
@@ -77,6 +78,7 @@ class ArticleDetailView(DetailView):
         context['pop_comments'] = self.get_object().comment_set.annotate(like_count=Count('like_set')).order_by('like_count').reverse()
         context['nb_comment'] = self.get_object().comment_set.count()
         context['last_article'] = Article.objects.order_by("creation_date").filter(is_active = True).reverse()[:5]
+        # context['nb_like'] = like_count
         return context
 
 class CommentCreateView(CreateView):

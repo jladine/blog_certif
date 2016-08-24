@@ -1,20 +1,29 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% load staticfiles %}
 {% block content %}
 
-<div class="container">
-    <form role="form" name="form" action="{{request.path}}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <!-- {{form.title.label_tag}}
-   {{form.title}}
-   {{form.body.label_tag}}
-   {{form.body}}
-   {{form.author.as_hidden}}
-   {{form.errors}} -->
-        {{form}}
-
-        <button type="submit" class="btn btn-primary"> Modifier</button>
-    </form>
+<div class="container first-container">
+    <div class="main main-update-article">
+        <h1>Modification de l'article {{article.title}}</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <img class="img-responsive" src="/media/{{article.image}}" alt="photo article" />
+            </div>
+            <div class="col-md-6 text-center">
+                <form role="form" name="form" action="{{request.path}}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <p>
+                        {{ field.label_tag }}
+                        {{field}}
+                        {{ field.errors }}
+                    </p>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary"> Modifier</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

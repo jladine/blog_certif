@@ -258,3 +258,38 @@ footer{
 .delete-article{
 	margin: 10em;
 }
+
+.main-update-article{
+	h1{
+		margin: 2em 0;
+	}
+	img{
+		border: 2px solid grey;
+		border-radius: 5px;
+	}
+
+	p{
+		margin: 2em 0;
+	}
+	#id_image{
+		display: inline-block;
+	}
+	button{
+		margin-bottom: 2em;
+	}
+}
+
+.main-create-article{
+	h1{
+		margin: 2em 0;
+	}
+	p{
+		margin: 2em 0;
+	}
+	#id_image{
+		display: inline-block;
+	}
+	button{
+		margin-bottom: 2em;
+	}
+}

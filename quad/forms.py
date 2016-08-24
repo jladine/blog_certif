@@ -25,6 +25,24 @@ class ArticleForm(forms.ModelForm):
         model = Article
         fields = '__all__'
 
+        labels = {
+            "title": "Titre",
+            "body": "Article",
+            "is_active": "Actif"
+        }
+
+
+class ArticleUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = '__all__'
+
+        labels = {
+            "title": "Titre",
+            "body": "Article",
+            "is_active": "Actif"
+        }
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
