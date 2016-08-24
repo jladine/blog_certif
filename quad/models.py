@@ -2,6 +2,9 @@ from __future__ import unicode_literals
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django.core.urlresolvers import reverse
+
+
 from django.db import models
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
@@ -26,6 +29,9 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return '%s' % (self.body)
+
+    def get_absolute_url(self):
+        return reverse('create_comment', kwargs={'article_id': self.article.id})
 
 class Like(models.Model):
     author = models.ForeignKey(User)

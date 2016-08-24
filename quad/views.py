@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.decorators.csrf import csrf_exempt
 from registration import signals
 from django.db.models import Count, Prefetch
@@ -85,7 +85,12 @@ class CommentCreateView(CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'create_comment.html'
-    success_url = reverse_lazy('homepage')
+    # success_url = reverse_lazy('create_comment')
+    # def get_success_url(self, **kwargs):
+    #     if  kwargs != None:
+    #         return reverse_lazy('create_comment', kwargs = 1)
+    #     else:
+    #         return reverse_lazy('create_comment', args = 1)
 
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
@@ -118,6 +123,10 @@ class CommentCreateView(CreateView):
             form.save()
             return super(CommentCreateView, self).form_valid(form)
 
+    # def get_success_url(self, **kwargs):
+    #     if  kwargs != None:
+    #         return reverse_lazy('creation-comment', kwargs = {'id': kwargs[self.object.article.id]})
+
 class UserDetailView(DetailView):
     model = User
     template_name = 'profile.html'
@@ -140,7 +149,7 @@ class UserUpdateView(UpdateView):
 
 class LikeFormView(FormView):
     form_class = LikeForm
-    success_url = reverse_lazy('homepage')
+    success_url = reverse_lazy('creation-comment')
 
     def form_valid(self, form):
             form.save()
