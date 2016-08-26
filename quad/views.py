@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, get_user_model, login
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, FormView, TemplateView
 
 from models import *
-from forms import ArticleForm, ArticleUpdateForm, CommentForm, LikeForm
+from forms import ArticleForm, ArticleUpdateForm, CommentForm
 
 User = get_user_model()
 
@@ -74,39 +74,23 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(**kwargs)
-        context['last_comments'] = self.get_object().comment_set.order_by("creation_date").reverse()[:3]
-        context['pop_comments'] = self.get_object().comment_set.annotate(like_count=Count('like_set')).order_by('like_count').reverse()
+        context['last_comments'] = self.get_object().comment_set.order_by("creation_date").reverse()[:5]
         context['nb_comment'] = self.get_object().comment_set.count()
         context['last_article'] = Article.objects.order_by("creation_date").filter(is_active = True).reverse()[:5]
-        # context['nb_like'] = like_count
         return context
 
 class CommentCreateView(CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'create_comment.html'
-    # success_url = reverse_lazy('create_comment')
-    # def get_success_url(self, **kwargs):
-    #     if  kwargs != None:
-    #         return reverse_lazy('create_comment', kwargs = 1)
-    #     else:
-    #         return reverse_lazy('create_comment', args = 1)
 
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         return super(CommentCreateView, self).dispatch(request, *args, **kwargs)
 
-
     def get_context_data(self, **kwargs):
         context = super(CommentCreateView, self).get_context_data(**kwargs)
-
-        comments = {}
-        for comment in Comment.objects.filter(article=self.kwargs['article_id']):
-            comments[comment] = LikeForm({
-                            'author': self.request.user,
-                            'comment': comment
-                            })
-        context["object_list"] = comments
+        context["comments"] = Comment.objects.filter(article_id=self.kwargs['article_id'])
         return context
 
     def get_form_kwargs(self):
@@ -123,10 +107,6 @@ class CommentCreateView(CreateView):
             form.save()
             return super(CommentCreateView, self).form_valid(form)
 
-    # def get_success_url(self, **kwargs):
-    #     if  kwargs != None:
-    #         return reverse_lazy('creation-comment', kwargs = {'id': kwargs[self.object.article.id]})
-
 class UserDetailView(DetailView):
     model = User
     template_name = 'profile.html'
@@ -135,9 +115,7 @@ class UserDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(UserDetailView, self).get_context_data(**kwargs)
         user = self.object.id
-        comment_like = self.object.like_set
         context['mycomments'] = Comment.objects.filter(author = user)
-        context['mycommentslike'] = Comment.objects.annotate(like_count=Count('like_set')).filter(author = user).order_by('like_count').reverse()
 
         return context
 
@@ -146,11 +124,3 @@ class UserUpdateView(UpdateView):
     fields = ["email", "username", "last_name", "first_name"]
     template_name = 'update_user.html'
     success_url = reverse_lazy('homepage')
-
-class LikeFormView(FormView):
-    form_class = LikeForm
-    success_url = reverse_lazy('creation-comment')
-
-    def form_valid(self, form):
-            form.save()
-            return super(LikeFormView, self).form_valid(form)

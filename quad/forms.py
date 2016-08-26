@@ -51,12 +51,12 @@ class CommentForm(forms.ModelForm):
             "author" : forms.HiddenInput(),
             "article" : forms.HiddenInput(),
             }
-
-class LikeForm(forms.ModelForm):
-    class Meta:
-        model = Like
-        fields = '__all__'
-        widgets = {
-            "author" : forms.HiddenInput(),
-            "comment" : forms.HiddenInput(),
-            }
+# 
+# class LikeForm(forms.ModelForm):
+#     class Meta:
+#         model = Like
+#         fields = '__all__'
+#         widgets = {
+#             "author" : forms.HiddenInput(),
+#             "comment" : forms.HiddenInput(),
+#             }

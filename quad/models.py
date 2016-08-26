@@ -32,7 +32,3 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('create_comment', kwargs={'article_id': self.article.id})
-
-class Like(models.Model):
-    author = models.ForeignKey(User)
-    comment = models.ForeignKey(Comment, related_name="like_set")
