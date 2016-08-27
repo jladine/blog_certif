@@ -23,34 +23,23 @@
         </div>
         <div class="row">
 
-            <div class="col-md-offset-2 col-md-4">
+            <div class="col-md-offset-2 col-md-8">
                 <div class="zone-comment">
                     <h2 class="text-center">Derniers commentaires</h2>
                     <ul class="list-unstyled">
                         {% for comment in last_comments %}
                         <li class="comment">
-                            <p>
-                                {{comment}}
-                            </p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    <a href="{% url 'create_comment' article.id %}">Tout les commentaires</a>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="zone-comment">
-                    <h2 class="text-center">Les plus populaires</h2>
-                    <ul class="list-unstyled">
-                        {% for comment in pop_comments %}
-                        <li class="comment">
-                            <p>
-                                {{comment}}
-                            </p>
-                            <p>
-                                {{nb_like}}
-                            </p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    De : {{ comment.author }}
+                                </div>
+                                <div class="col-md-offset-3 col-md-3">
+                                    Le {{comment.creation_date}}
+                                </div>
+                                <p>
+                                    {{comment}}
+                                </p>
+                            </div>
                         </li>
                         {% endfor %}
                     </ul>

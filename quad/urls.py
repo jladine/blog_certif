@@ -17,6 +17,4 @@ urlpatterns = [
     url(r'^compte/(?P<pk>\d+)$', UserDetailView.as_view(), name='compte'),
     url(r'^compte/update/(?P<pk>\d+)$', UserUpdateView.as_view(), name='user_update'),
 
-    # url('^my_form/$', require_POST(LikeFormView.as_view()), name='my_form_view_url'),
-
 ]
