@@ -33,41 +33,22 @@
                         </ul>
                     </div>
                 </div>
+                <h2 class="text-center">Mes commentaires</h2>
                 <div class="row info-comments">
-                    <div class="col-md-4">
-                        <h2 class="text-center">Mes commentaires</h2>
-                        {%for comment in mycomments%}
-                        <p class="text-center">
-                            {{comment}} article : {{comment.article}}
-                        </p>
 
-                        {%endfor%}
-                    </div>
-                    <div class="col-md-4">
-                        <h2 class="text-center">Mes commentaires liké</h2>
-                        {%for comment in mycommentslike%}
-                        <p class="text-center">
-                            {{comment}}
-                            {{comment.like_set}}
-                        </p>
-                        <p class="text-center">
+                            {%for comment in mycomments%}
+                            <div class="col-md-4 box-comment">
+                                <div>
 
-                            <!-- {{othercommentslike}} -->
-                        </p>
-
-                        {%endfor%}
-                    </div>
-                    <div class="col-md-4">
-                        <h2 class="text-center">Commentaires que j'ai liké</h2>
-                        {%for comment in othercommentslike%}
-                        <p>
-                            {{comment}}
-                        </p>
-
-                        {%endfor%}
-                    </div>
+                                    <h3 class="text-center"><a href="#">{{comment.article}}</a></h3>
+                                    <p>
+                                        {{comment}}
+                                    </p>
+                                </div>
 
 
+                            </div>
+                            {%endfor%}
                 </div>
             </div>
         </div>

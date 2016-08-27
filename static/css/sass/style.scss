@@ -160,7 +160,6 @@ nav{
 
 footer{
     background-color: rgba(10,10,10,0.8);
-	// width: 100%;
     h3{
         color:#DFE3E5;
     }
@@ -204,7 +203,6 @@ footer{
 	}
 
 	.last-articles{
-	    // border: 1px solid grey;
 	    margin: 2em 0;
 	    padding: 3em 2em;
 		background-color: #FBFBFB;
@@ -236,10 +234,21 @@ footer{
 		font-size:2em;
 	}
 	.info-comments{
-		background-color: #FBFBFB;
 		margin: 6em 2em;
 		padding: 2em 0;
 		border-radius: 5px;
+		.box-comment{
+			div{
+				background-color: #FBFBFB;
+				margin: 0.5em;
+				padding: 1em;
+				border-radius: 5px;
+				border: 1px solid #F9F9F9;
+				h3{
+					margin: 0 0 1em 0;
+				}
+			}
+		}
 	}
 }
 .main-dashboard{
