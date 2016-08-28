@@ -24,6 +24,7 @@
                         {% endfor %}
                     </div>
                     </ul>
+                {% if user.is_authenticated %}
                 <div class="creation-comment">
                     <p>
                         Votre commentaire :
@@ -33,10 +34,9 @@
                         <button class="btn btn-secondary commit" type="submit">Envoyer</button>
                     </form>
                 </div>
+                {% endif %}
             </div>
-
         </div>
-
     </div>
 </section>
 

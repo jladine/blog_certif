@@ -89,7 +89,7 @@ class CommentCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CommentCreateView, self).get_context_data(**kwargs)
-        context["comments"] = Comment.objects.filter(article_id=self.kwargs['article_id'])
+        context["comments"] = Comment.objects.filter(article_id=self.kwargs['article_id']).order_by("creation_date").reverse()
         return context
 
     def get_form_kwargs(self):
