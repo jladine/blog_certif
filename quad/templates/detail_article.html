@@ -1,13 +1,13 @@
 {% extends "base.html" %} {% load staticfiles %} {% block content %}
 
-<div class="container first-container">
+<section class="container first-container">
     <div class="main main-detail-article">
         <h1 class="text-center">Essaie du {{article.title}}</h1>
         <div class="row">
-            <div class="col-md-6">
+            <section class="col-md-6">
                 <img class="img-responsive" src="/media/{{article.image}}" alt="image article" />
-            </div>
-            <div class="col-md-offset-1 col-md-4 text-article">
+            </section>
+            <section class="col-md-offset-1 col-md-4 text-article">
                 <p>
                     {{article.body}}
                 </p>
@@ -19,11 +19,11 @@
                         Commentaires({{nb_comment}})
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
         <div class="row">
 
-            <div class="col-md-offset-2 col-md-8">
+            <section class="col-md-offset-2 col-md-8">
                 <div class="zone-comment">
                     <h2 class="text-center">Derniers commentaires</h2>
                     <ul class="list-unstyled">
@@ -45,12 +45,12 @@
                     </ul>
                     <a href="{% url 'create_comment' article.id %}">Tout les commentaires</a>
                 </div>
-            </div>
+            </section>
 
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row detail-last-article">
+            <section class="col-md-12">
                 <div class="last-articles">
                     <h3>Derniers articles :</h3>
                     <div class="three-time">
@@ -62,10 +62,10 @@
                     </div>
 
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 
-</div>
+</section>
 
 {% endblock %}

@@ -61,7 +61,6 @@ class ArticleUpdateView(UpdateView):
     template_name = 'update_article.html'
     success_url = reverse_lazy('backoffice')
 
-
 class ArticleDeleteView(DeleteView):
     model = Article
     template_name = 'delete_article.html'
