@@ -115,7 +115,6 @@ class UserDetailView(DetailView):
         context = super(UserDetailView, self).get_context_data(**kwargs)
         user = self.object.id
         context['mycomments'] = Comment.objects.filter(author = user)
-
         return context
 
 class UserUpdateView(UpdateView):

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% block title %}Déconnexion{% endblock %}
 {% block content %}
 <div class="container first-container logout">
@@ -14,4 +14,18 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+var time = 3;
+
+setInterval(function() {
+    $("#redirection").text("Redirection dans " + time + " secondes.");
+    if (time === 0) {
+        window.location.href = '/';
+    }
+    time--;
+}, 1000);
+</script>
+
+
 {% endblock %}
