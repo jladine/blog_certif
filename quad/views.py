@@ -33,7 +33,7 @@ class RegistrationView(BaseRegistrationView):
 class HomepageView(ListView):
     model = Article
     template_name = 'homepage.html'
-    queryset = Article.objects.order_by("creation_date").filter(is_active = True)[::-1]
+    queryset = Article.objects.order_by("-creation_date").filter(is_active = True)
     def get_context_data(self, **kwargs):
         context = super(HomepageView, self).get_context_data(**kwargs)
         context['popular_article'] = Article.objects.filter(is_active=True).annotate(vote_count=Count('comment')).order_by('-vote_count')[:3]
