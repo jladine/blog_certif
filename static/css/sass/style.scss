@@ -158,29 +158,6 @@ nav{
     margin: 1em 0;
 }
 
-footer{
-    background-color: rgba(10,10,10,0.8);
-    h3{
-        color:#DFE3E5;
-    }
-    ul{
-        li{
-            a{
-                color: #DFE3E5;
-            }
-            a:hover{
-                text-decoration: none;
-                color: #757575;
-            }
-        }
-    }
-    .foot{
-        p{
-            margin: 0;
-            color: #DFE3E5;
-        }
-    }
-}
 
 .main-detail-article{
 	h1{
@@ -322,16 +299,38 @@ footer{
 	}
 }
 
+footer{
+	background-color: rgba(10,10,10,0.8);
+	h3{
+		color:#DFE3E5;
+	}
+	ul{
+		li{
+			a{
+				color: #DFE3E5;
+			}
+			a:hover{
+				text-decoration: none;
+				color: #757575;
+			}
+		}
+	}
+	.foot{
+		p{
+			margin: 0;
+			color: #DFE3E5;
+		}
+	}
+}
+
 @media screen and (max-width: 1000px) {
 	#menu {
 		display:none;
 	}
-
 	.slicknav_menu {
 		display:block;
         background-color: rgba(10,10,10,0.8);
 	}
-
     .container-fluide{
             padding: 0;
     }
